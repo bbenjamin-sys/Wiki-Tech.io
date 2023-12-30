@@ -1,0 +1,245 @@
+<!--
+title: Python - Manipulation des données
+description: 
+published: true
+date: 2022-10-11T10:52:08.520Z
+tags: 
+editor: ckeditor
+dateCreated: 2021-06-07T08:01:47.026Z
+-->
+
+<figure class="image image_resized" style="width:53.94%;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f8/Python_logo_and_wordmark.svg/1200px-Python_logo_and_wordmark.svg.png" alt="Fichier:Python logo and wordmark.svg — Wikipédia"></figure>
+<h1>Les listes</h1>
+<p>Une liste se déclare avec des crochets et on accède à une donnée par son indice.</p>
+<pre><code class="language-python">&gt;&gt;&gt; langages = ["python", "C#","java","C++"]
+
+&gt;&gt;&gt; print(langages[1])
+C#</code></pre>
+<h2>Les actions possibles sur une liste</h2>
+<p>list.<strong>append(val) → </strong>Ajoute la valeur à la fin de la liste</p>
+<p>list.<strong>insert(index, val) → </strong>Ajoute la valeur à l'index indiqué</p>
+<p>list.<strong>extend(liste) → </strong>Ajoute les éléments d'une liste à la liste</p>
+<p>list.<strong>remove(val) → </strong>Supprime le premier élément de la liste égal à <i>val</i>. Si l'élément n'existe pas, une exception <i>ValueError</i> est levée</p>
+<p>list.<strong>clear(val)&nbsp;→ </strong>Supprime tous les éléments de la liste</p>
+<p>list.<strong>pop(index </strong><i>(optionnel)</i><strong>) → </strong>Supprime l'élément à l'index indiqué. Sans indication, supprime le dernier élément.</p>
+<p>list.<strong>index(val) →&nbsp;</strong> Renvoi l'index correspondant à la valeur donnée</p>
+<p>list.<strong>count(val) → </strong>Renvoi le nombre d'éléments correspondants à <i>val</i></p>
+<p>list.<strong>sort() → </strong>Trie la liste</p>
+<p>list.<strong>reverse() → </strong>Inverse l'ordre des éléments de la liste</p>
+<h2>Parcourir une liste</h2>
+<p>Pour parcourir une liste il suffit d'écrire une boucle <i><strong>for</strong> var <strong>in</strong> list </i>:</p>
+<pre><code class="language-python">&gt;&gt;&gt; langages = ["python", "C#","java","C++"]
+
+&gt;&gt;&gt; for prog in langages:
+&gt;&gt;&gt;     print(prog, "est cool")
+
+python est cool
+C# est cool
+java est cool
+C++ est cool</code></pre>
+<h2>Shallow copy vs Deep copy</h2>
+<p>Lorsqu'on copie une liste, il faut bien faire attention à la méthode employée.</p>
+<p>La première méthode est de simplement affecter à une variable la liste précédente. C'est le shallow copy. Cette méthode ne crée pas une seconde liste, mais renvoie au même index dans la pile. Si on modifie la première liste, ça modifie donc la deuxième aussi !</p>
+<pre><code class="language-python">&gt;&gt;&gt; l1 = [1,2,3]
+&gt;&gt;&gt; l2 = l1
+
+&gt;&gt;&gt; l1[1] = 64
+&gt;&gt;&gt; print(l2)
+
+[1,64,3]</code></pre>
+<p>Si on veut créer une seconde liste indépendante, on réalisera donc une deep copy grâce à la fonction <i>deepcopy</i>.</p>
+<pre><code class="language-python">&gt;&gt;&gt; import copy
+
+&gt;&gt;&gt; l1 = [1,2,3]
+&gt;&gt;&gt; l2 = copy.deepcopy(l1)
+
+&gt;&gt;&gt; l1[1] = 64
+&gt;&gt;&gt; print(l2)
+
+[1,2,3]</code></pre>
+<h1>Les tuples</h1>
+<p>Les tuples ressemblent à des listes mais ne sont pas modifiables après leur création. Ils sont définis avec des parenthèses :</p>
+<pre><code class="language-python">&gt;&gt;&gt; tup = (1,2,3)
+&gt;&gt;&gt; tup
+(1, 2, 3)</code></pre>
+<p>Comme pour les listes, on peut accéder à un élément par son indice :</p>
+<pre><code class="language-python">&gt;&gt;&gt; tup[1]
+2</code></pre>
+<p>Les tuples servent principalement à attribuer plusieurs valeurs :</p>
+<pre><code class="language-python">####EXEMPLE 1#######
+&gt;&gt;&gt; tup = (1,2,3)
+&gt;&gt;&gt; a,b,c = tup
+&gt;&gt;&gt; a
+1
+&gt;&gt;&gt; b
+2
+&gt;&gt;&gt; c
+3
+
+####EXEMPLE 2#######
+&gt;&gt;&gt; a, b = 1, 2 #dans ce cas, les parenthèses ne sont pas obligatoires
+&gt;&gt;&gt; a
+1
+&gt;&gt;&gt; b
+2
+
+####EXEMPLE 3#######
+def example():
+   return 1,2 #ceci est un tuple
+    
+tup = example()
+a, b = example()
+
+&gt;&gt;&gt; tup
+(1, 2)
+&gt;&gt;&gt; a
+1
+&gt;&gt;&gt; b
+2</code></pre>
+<h1>Les dictionnaires (+ json)</h1>
+<h2>Créer un dictionnaire</h2>
+<p>Les dictionnaires permettent eux aussi de rassembler des éléments mais sont identifiés par une <strong>clé</strong> au lieu d'un indice, et vont permettre de traiter beaucoup plus d'informations qu'une liste. Un dictionnaire se déclare avec des accolades.</p>
+<pre><code class="language-python">dictio = {"title": "Modèles de voitures", "SUV": ["CX-5","C-HR","Duster"], "4x4": ["Q5","Tucson","Macan"]}</code></pre>
+<p>&nbsp;</p>
+<blockquote>
+  <p><strong>Note : </strong>Les éléments entre crochets sont des listes. Il est possible de déclarer des listes dans un dictionnaire, et même des dictionnaires dans un dictionnaire, un dictionnaire dans une liste, ...</p>
+</blockquote>
+<p>Dans cet exemple nous avons trois clés : “title”, “SUV” et “4x4”.</p>
+<p>Pour ajouter un élément au dictionnaire, on attribue une clé entre crochets puis une valeur.</p>
+<pre><code class="language-python">&gt;&gt;&gt; dictio["citadine"] = "C3"
+&gt;&gt;&gt; print(dictio)
+{'title': 'Modèles de voitures', 'SUV': ['CX-5', 'C-HR', 'Duster'], '4x4': ['Q5', 'Tucson', 'Macan'], 'citadine': 'C3'}</code></pre>
+<h2>Lire un dictionnaire</h2>
+<p>Pour connaître le titre nous appelons le dictionnaire avec la clé entre crochets :</p>
+<pre><code class="language-python">&gt;&gt;&gt; dictio["title"]
+'Modèles de voitures'</code></pre>
+<p>Pour accéder à une valeur d'une liste, il suffit d'indiquer l'indice en fonction de la clé :</p>
+<pre><code class="language-python">&gt;&gt;&gt; dictio["SUV"][1]
+'C-HR'</code></pre>
+<p>Pour parcourir l'ensemble du dictionnaire on utilise la méthode items().</p>
+<pre><code class="language-python">for cars in dictio.items():
+    print(cars)
+    
+('title', 'Modèles de voitures')
+('SUV', ['CX-5', 'C-HR', 'Duster'])
+('4x4', ['Q5', 'Tucson', 'Macan'])
+('citadine', 'C3')</code></pre>
+<p>On reconnait ici une forme de tuple ! On peut donc aussi attribuer 2 variables à la place de cars pour dissocier la clé et la valeur :</p>
+<pre><code class="language-python">for car_type, models in dictio.items():
+    if car_type != "title":  #Pour exclure l'élément "title"
+        print("Modeles de ",car_type," : ",models)
+
+Modeles de  SUV  :  ['CX-5', 'C-HR', 'Duster']
+Modeles de  4x4  :  ['Q5', 'Tucson', 'Macan']
+Modeles de  citadine  :  C3</code></pre>
+<p>&nbsp;</p>
+<h2>Importer un fichier json en un dictionnaire exploitable</h2>
+<p>Le format json n'est rien d'autre qu'un dictionnaire. Pour lire un fichier json il suffira alors de le charger et nous obtiendrons le même dictionnaire que nous avions créé.</p>
+<p><i>Contenu du fichier “voitures.json” :</i></p>
+<pre><code class="language-plaintext">{
+	"title": "Modeles de voitures", 
+	"SUV":
+	 [
+		"CX-5","C-HR","Duster"
+	], 
+	"4x4": 
+	[
+		"Q5","Tucson","Macan"
+	]
+}</code></pre>
+<p>On importe ce fichier et le convertit en dictionnaire :</p>
+<pre><code class="language-python">import json
+
+with open('voitures.json') as file:   #On ouvre le fichier "voitures.json" en tant que variable "file"
+    data = json.load(file)     #On attribue le contenu du fichier au dictionnaire "data"
+
+&gt;&gt;&gt; data
+{'title': 'Modeles de voitures', 'SUV': ['CX-5', 'C-HR', 'Duster'], '4x4': ['Q5', 'Tucson', 'Macan']}</code></pre>
+<h1>Manipuler un fichier</h1>
+<h2>Ouvrir un fichier</h2>
+<p>Options d'ouvertures de fichiers :</p>
+<figure class="table">
+  <table>
+    <tbody>
+      <tr>
+        <td>‘r’</td>
+        <td>Ouvre en lecture seule</td>
+      </tr>
+      <tr>
+        <td>‘w’</td>
+        <td>Ouvre en écriture, en effaçant le contenu du fichier</td>
+      </tr>
+      <tr>
+        <td>‘r+’</td>
+        <td>Ouvre en écriture, sans effacer le contenu déjà existant</td>
+      </tr>
+      <tr>
+        <td>‘x’</td>
+        <td>Ouvre en création exclusive. Échoue si le fichier existe déjà</td>
+      </tr>
+      <tr>
+        <td>‘a’</td>
+        <td>Ouvre en écriture, en ajoutant le contenu à la fin (append)</td>
+      </tr>
+    </tbody>
+  </table>
+</figure>
+<p>Pour ouvrir un fichier on utilise la méthode “open” et on spécifie l'option souhaitée.</p>
+<pre><code class="language-python">file = open('test.txt','r')
+
+[...]
+
+file.close()</code></pre>
+<p>Avec cette méthode il est nécessaire de fermer le fichier avec <i>close()</i>. En cas de problème pendant l’exécution du code, les modifications ne seront pas prises en compte et le fichier ne sera plus utilisable par la suite du script.&nbsp;</p>
+<p>Une méthode plus fiable, plus sécurisée sera donc d'utiliser <i>open() </i>avec <i>with. </i>Le fichier sera automatiquement fermé.</p>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    [...]</code></pre>
+<p>&nbsp;</p>
+<blockquote>
+  <p><i><strong>Attention : </strong>On voit les deux points à la fin de la ligne. Cela implique donc d'<strong>indenter</strong> les lignes suivantes.</i></p>
+</blockquote>
+<blockquote>
+  <p><strong>Info : </strong>Pour donner le chemin vers le fichier il faut des “ / “ et non des ” \ ". Ex : C:/mon<i>dossier/mon</i>fichier</p>
+</blockquote>
+<h2>Manipuler un texte</h2>
+<p>Pour lire un fichier texte, on l'ouvre bien entendu avec l'option ‘r’, puis on peut :</p>
+<h3>1 - Lire le fichier en entier avec <i>read()</i></h3>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    print(file.read())
+
+ligne 1
+ligne 2
+ligne 3</code></pre>
+<h3>2 - Lire le fichier ligne par ligne avec <i>readline()</i></h3>
+<p>Le premier <i>readline()</i> lira la première ligne, le deuxième la deuxième ligne, etc…</p>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    print(file.readline())
+    print(file.readline())
+
+ligne 1
+ligne 2</code></pre>
+<p>Avec cette méthode, il faut répéter <i>readline() </i>autant de fois qu'il y a de lignes. La méthode la plus efficace sera d'utiliser une boucle <i>for :&nbsp;</i></p>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    for ligne in file:
+        print(ligne)
+
+ligne 1
+ligne 2
+ligne 3</code></pre>
+<h3>3 - Mettre toute les lignes dans une liste avec <i>readlines()</i></h3>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    print(file.readlines())
+
+['banane\n', 'fraise\n', 'chocolat'] #Les \n indiquent des retours à la ligne</code></pre>
+<p>Sinon pour avoir la liste sans le \n, on peut utiliser read().splitlines() :</p>
+<pre><code class="language-python">with open('test.txt','r') as file:
+    print(file.read().splitlines())
+
+['banane', 'fraise', 'chocolat'] </code></pre>
+<p>Enfin, pour écrire dans un fichier texte, on utilise <i>write().</i></p>
+<pre><code class="language-python">with open('test.txt','a') as file:
+    file.write("\nligne 4")</code></pre>
+<h2>Manipuler un CSV</h2>
+<p>&nbsp;</p>
+<h1>Formater des chaines de caractères</h1>
+<p>&nbsp;</p>
